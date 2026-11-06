@@ -1,7 +1,7 @@
 # AGENTS —— 给写代码的 AI 读的入口
 
 > 这份文件是**给 agent 看的**，不是给人看的营销页。人看 [`../README.md`](../README.md)；
-> 为什么这么设计看 [`DESIGN.md`](DESIGN.md)；现在到哪一步看 [`HANDOVER.md`](HANDOVER.md)。
+> 为什么这么设计看 [`DESIGN.md`](DESIGN.md)；版本变化看 [`../CHANGELOG.md`](../CHANGELOG.md)。
 >
 > 目标：一个 agent 读完这份 + 跑一遍 `run_all`，就能在**不破坏不变量**的前提下改代码。
 
@@ -144,7 +144,7 @@ python tools\run_all.py --list     :: 看清单与期望条数
 3. `python tools\run_all.py` —— 必须回到全绿；条数变了就同步 `EXPECTED`。
 4. 更新文档：
    - 改了行为 → `docs/DESIGN.md` 对应小节（它按「结论/理由/被否决/怎么验收」四段写）；
-   - 改了状态 → `docs/HANDOVER.md`（含验收条数）；
+   - 改了对外可见的东西 → `CHANGELOG.md` 加一条（含验收条数）；
    - 改了对外契约 → `docs/IM_INTEGRATION.md`。
 5. `git commit`：一条提交讲一件改动，说明"为什么"，不只是"改了什么"。
 
@@ -198,6 +198,6 @@ python tools\run_all.py --list     :: 看清单与期望条数
 | `README.md` | 人（第一次来） | 这是什么、凭什么信、怎么跑起来、不做什么 |
 | `docs/AGENTS.md`（本文） | agent（要改代码） | 规矩在哪、代码在哪、改完怎么验、哪里会踩坑 |
 | `docs/DESIGN.md` | 人（要理解取舍） | 每条决策的结论/理由/否决项/验收 |
-| `docs/HANDOVER.md` | 接手的 agent 或人 | 现在到哪一步、下一步做什么 |
+| `CHANGELOG.md` | 使用者 | 每个版本改了什么 |
 
 改代码前，先读第 1 节；改完，回到第 5 节。

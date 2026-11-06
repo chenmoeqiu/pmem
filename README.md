@@ -250,7 +250,8 @@ pmem\          核心库（零第三方依赖，约 29 个模块）
   ports.py     对外两个出口：context / note
   cli.py       命令行
 tools\         验收（run_all / smoke_* / eval_* / check_privacy / load_samples）
-docs\          DESIGN.md（为什么这么做）/ AGENTS.md（给改代码的 AI）/ HANDOVER.md（现在到哪一步）/ IM_INTEGRATION.md（接 IM 的契约）
+docs\          DESIGN.md（为什么这么做）/ AGENTS.md（给改代码的 AI）/ IM_INTEGRATION.md（接 IM 的契约）
+CHANGELOG.md   变更记录
 samples\       合成样例数据
 ```
 
