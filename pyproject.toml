@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pmem"
-version = "0.1.0"
+version = "0.1.1"
 description = "一个禁止向量检索的本地记忆库：原文 + 时间戳 + 标签，每条结论都能点回原话"
 readme = "README.md"
 requires-python = ">=3.11"
