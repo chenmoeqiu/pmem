@@ -31,7 +31,8 @@ python tools\run_all.py          :: 96 项上限；空库时 94 通过 + 2 跳�
 | 7 | **零第三方依赖**（只用标准库） | 破坏"clone 下来就能跑" |
 
 第 6 条有原型事故：`tools/smoke_http.py` 曾经直接写真实库，每跑一次就留下 6 条测试消息
-+ 3 条路由日志。现在它先用 `con.backup()` 复制成 `data/_http_smoke.db` 再跑。
++ 3 条路由日志。现在它先用 `con.backup()` 复制成 `data/_http_smoke.db` 再跑：
+**源库以 `mode=ro` 只读打开，写入只发生在副本上**，跑完删除。
 
 ---
 
