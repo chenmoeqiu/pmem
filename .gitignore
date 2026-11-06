@@ -1,0 +1,40 @@
+# 个人记忆数据绝不进仓库
+data/
+*.db
+*.db-wal
+*.db-shm
+*.jsonl
+
+# 密钥绝不进仓库
+secrets.toml
+.env
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# 编辑器
+.vscode/
+.idea/
+
+# 私有：脱敏前的原稿、真实例子、敏感词表（不进仓库）
+docs/_private/
+# 备份与快照
+_backups/
+
+# 自己的人设（属于个人偏好，仓库里只留 persona.example.md）
+persona.md
+
+# 隐私词表（它本身就是敏感信息；check_privacy 会读它，但它不进仓库）
+privacy_terms.txt
+
+# 从真实数据长出来的词表提案（属于某个人的数据，不进仓库）
+docs/VOCAB_PROPOSAL.md
+docs/vocab_add.cmd
+
+# 调试/临时产物（写探针脚本时容易漏删）
+*.out
+.*.py

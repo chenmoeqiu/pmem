@@ -1,0 +1,44 @@
+# pmem 配置（标准 TOML，无第三方依赖）
+
+[paths]
+db     = "data/memory.db"     # 全部记忆都在这一个文件里
+media  = "data/media"         # 图片/PDF 等附件按日期存放
+export = "data/export"        # 导出的人类可读副本
+
+[runtime]
+utc_offset_hours = 8          # 展示用的本地时区（+8）
+
+[import]
+skip_video          = true    # 视频对检索无用，默认跳过
+max_attachment_mb   = 20      # 单个附件上限
+
+[search]
+recall          = 200         # 先宽召回这么多条，再在 Python 侧重排
+default_limit   = 10
+half_life_days  = 180         # 时间衰减半衰期：半年后权重减半
+
+[llm]
+# provider: auto = 有 key 用 API，没 key 自动降级为离线规则模式
+#           api  = 强制 API（缺 key 直接报错）
+#           offline = 强制离线
+provider        = "auto"
+base_url        = "https://api.deepseek.com"
+model_router    = "deepseek-chat"     # 路由用便宜的就够
+model_synth     = "deepseek-chat"     # 生成可用更强的
+model_vision    = "deepseek-chat"     # 图片描述用；换支持视觉的模型时改这里
+api_key_env     = "DEEPSEEK_API_KEY"  # 也可以写在 secrets.toml 里
+timeout_seconds = 60
+max_retries     = 1
+json_mode       = true
+temperature_router = 0.0
+temperature_synth  = 0.7
+
+[chat]
+hot_hours       = 24          # 找不到睡眠边界时的回退窗口
+hot_max_tokens  = 0           # 0 = 不截断（热记忆整段注入）；正数才限制
+sleep_gap_hours = 6           # 间隔≥6h 才可能算"睡了一觉"
+sleep_window    = "01:00-08:00"  # 睡眠窗口：间隔要和它重叠才算睡过（按你的作息改）
+sleep_min_overlap_hours = 2   # 与窗口至少重叠 2 小时，防边缘误判
+hits_limit      = 8           # 召回上限（证据门再从里面挑）
+hit_max_tokens  = 300         # 单条命中上限
+gate_enabled    = true        # 证据门：命中不等于够用，先判再答

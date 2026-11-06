@@ -1,0 +1,64 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: ${{ matrix.os }} / py${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.11", "3.12"]
+    env:
+      PYTHONIOENCODING: utf-8
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: 验收（96 项上限；空库 2 项跳过）
+        run: python tools/run_all.py
+
+      - name: 隐私扫描
+        run: python tools/check_privacy.py
+
+      - name: 被跟踪的文件里不许有密钥/个人数据
+        run: python tools/check_tracked.py
+
+      - name: 样例库能载入
+        run: python tools/load_samples.py
+
+      - name: 样例库能统计
+        run: python -m pmem --db data/sample.db stats
+
+  package:
+    name: package / pyproject
+    runs-on: ubuntu-latest
+    env:
+      PYTHONIOENCODING: utf-8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # 装成包之后，`pmem` 这个入口必须真的能用——这是 README 里承诺的第一件事
+      - name: 可编辑安装
+        run: python -m pip install -e .
+
+      - name: pmem 入口可用
+        run: pmem --db data/ci.db init
+
+      - name: 入口能读统计
+        run: pmem --db data/ci.db stats
