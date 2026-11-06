@@ -22,6 +22,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
+if sys.version_info < (3, 11):
+    print(f"需要 Python 3.11+（当前是 {sys.version.split()[0]}）：tomllib 在 3.11 才有。")
+    print(f"换一个解释器再跑，例如：  py -3.12 {Path(__file__).name}")
+    raise SystemExit(2)
+
 try:
     sys.stdout.reconfigure(encoding="utf-8")
 except Exception:

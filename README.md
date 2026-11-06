@@ -44,6 +44,10 @@ run.cmd --db data/sample.db search 咖啡
 
 需要 **Python 3.11+**，零第三方依赖。
 
+> 下面命令里的 `python` 指 **3.11 或更高**的那个解释器。如果 `python --version` 显示 3.9/3.10，
+> 会缺 `tomllib`：换一个解释器（例如 `py -3.12 tools\run_all.py`），或者先用 `run.cmd`
+> ——它自己会去找 3.11+。
+
 ```bat
 :: 1. 建库（空库也能跑，只是没什么可看的）
 run.cmd init
